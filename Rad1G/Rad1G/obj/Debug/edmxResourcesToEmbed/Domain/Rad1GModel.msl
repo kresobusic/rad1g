@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Rad1GModelStoreContainer" CdmEntityContainer="Rad1GEntities">
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="Rad1GModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Obvezniks">
+      <EntityTypeMapping TypeName="Rad1GModel.Obveznik">
+        <MappingFragment StoreEntitySet="Obveznik">
+          <ScalarProperty Name="PodaciUneseni" ColumnName="PodaciUneseni" />
+          <ScalarProperty Name="IdZaposlenika" ColumnName="IdZaposlenika" />
+          <ScalarProperty Name="Kontakt" ColumnName="Kontakt" />
+          <ScalarProperty Name="OIB" ColumnName="OIB" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RadPodacis">
+      <EntityTypeMapping TypeName="Rad1GModel.RadPodaci">
+        <MappingFragment StoreEntitySet="RadPodaci">
+          <ScalarProperty Name="BrojZaposlenihNekvalificirani" ColumnName="BrojZaposlenihNekvalificirani" />
+          <ScalarProperty Name="NetoPlacaNekvalificirani" ColumnName="NetoPlacaNekvalificirani" />
+          <ScalarProperty Name="BrutoPlacaNekvalificirani" ColumnName="BrutoPlacaNekvalificirani" />
+          <ScalarProperty Name="BrojZaposlenihPriuceni" ColumnName="BrojZaposlenihPriuceni" />
+          <ScalarProperty Name="NetoPlacaPriuceni" ColumnName="NetoPlacaPriuceni" />
+          <ScalarProperty Name="BrutoPlacaPriuceni" ColumnName="BrutoPlacaPriuceni" />
+          <ScalarProperty Name="BrojZaposlenihKvalificirani" ColumnName="BrojZaposlenihKvalificirani" />
+          <ScalarProperty Name="NetoPlacaKvalificirani" ColumnName="NetoPlacaKvalificirani" />
+          <ScalarProperty Name="BrutoPlacaKvalificirani" ColumnName="BrutoPlacaKvalificirani" />
+          <ScalarProperty Name="BrojZaposlenihVisokokvalificirani" ColumnName="BrojZaposlenihVisokokvalificirani" />
+          <ScalarProperty Name="NetoPlacaVisokokvalificirani" ColumnName="NetoPlacaVisokokvalificirani" />
+          <ScalarProperty Name="BrutoPlacaVisokokvalificirani" ColumnName="BrutoPlacaVisokokvalificirani" />
+          <ScalarProperty Name="BrojZaposlenihNizaStrucnaSprema" ColumnName="BrojZaposlenihNizaStrucnaSprema" />
+          <ScalarProperty Name="NetoPlacaNizaStrucnaSprema" ColumnName="NetoPlacaNizaStrucnaSprema" />
+          <ScalarProperty Name="BrutoPlacaNizaStrucnaSprema" ColumnName="BrutoPlacaNizaStrucnaSprema" />
+          <ScalarProperty Name="BrojZaposlenihSrednjaStrucnaSprema" ColumnName="BrojZaposlenihSrednjaStrucnaSprema" />
+          <ScalarProperty Name="NetoPlacaSrednjaStrucnaSprema" ColumnName="NetoPlacaSrednjaStrucnaSprema" />
+          <ScalarProperty Name="BrutoPlacaSrednjaStrucnaSprema" ColumnName="BrutoPlacaSrednjaStrucnaSprema" />
+          <ScalarProperty Name="BrojZaposlenihVisaStrucnaSprema" ColumnName="BrojZaposlenihVisaStrucnaSprema" />
+          <ScalarProperty Name="NetoPlacaVisaStrucnaSprema" ColumnName="NetoPlacaVisaStrucnaSprema" />
+          <ScalarProperty Name="BrutoPlacaVisaStrucnaSprema" ColumnName="BrutoPlacaVisaStrucnaSprema" />
+          <ScalarProperty Name="BrojZaposlenihVisokaStrucnaSprema" ColumnName="BrojZaposlenihVisokaStrucnaSprema" />
+          <ScalarProperty Name="NetoPlacaVisokaStrucnaSprema" ColumnName="NetoPlacaVisokaStrucnaSprema" />
+          <ScalarProperty Name="BrutoPlacaVisokaStrucnaSprema" ColumnName="BrutoPlacaVisokaStrucnaSprema" />
+          <ScalarProperty Name="BrojZaposlenihZene" ColumnName="BrojZaposlenihZene" />
+          <ScalarProperty Name="NetoPlacaZene" ColumnName="NetoPlacaZene" />
+          <ScalarProperty Name="BrutoPlacaZene" ColumnName="BrutoPlacaZene" />
+          <ScalarProperty Name="BrojZaposlenihMuskarci" ColumnName="BrojZaposlenihMuskarci" />
+          <ScalarProperty Name="NetoPlacaMuskarci" ColumnName="NetoPlacaMuskarci" />
+          <ScalarProperty Name="BrutoPlacaMuskarci" ColumnName="BrutoPlacaMuskarci" />
+          <ScalarProperty Name="ZaposlenikId" ColumnName="ZaposlenikId" />
+          <ScalarProperty Name="ObveznikId" ColumnName="ObveznikId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

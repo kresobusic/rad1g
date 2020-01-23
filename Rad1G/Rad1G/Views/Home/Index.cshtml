@@ -1,0 +1,225 @@
+﻿@{
+    ViewBag.Title = "Statistike";
+    var statistikaStrucnaSprema = (decimal[])ViewBag.StatistikaStrucnaSprema;
+    var statistikaMuski = (decimal)ViewBag.StatistikaMuski;
+    var statistikaZenski = (decimal)ViewBag.StatistikaZenski;
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">Godišnje</span>
+                    <h5>Broj obveznika</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.BrojObveznika</h1>
+                    <div class="stat-percent font-bold text-success">10% <i class="fa fa-level-up"></i></div>
+                    <small>Broj obveznika uključenih u istraživanje</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">Trenutno</span>
+                    <h5>Obrađeno</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.BrojObrađenihObveznika</h1>
+                    <div class="stat-percent font-bold text-info">@ViewBag.PostotakObrađenihObveznika% <i class="fa fa-level-up"></i></div>
+                    <small>Obrađeno obaveznika</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Godišnje</span>
+                    <h5>Prosječna plaća</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@statistikaMuski</h1>
+                    <div class="stat-percent font-bold text-navy">5% <i class="fa fa-level-up"></i></div>
+                    <small>Prosječna plaća muškaraca</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">Godišnje</span>
+                    <h5>Prosječna plaća</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@statistikaZenski</h1>
+                    <div class="stat-percent font-bold text-danger">7% <i class="fa fa-level-up"></i></div>
+                    <small>Prosječna plaća žena</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div>
+                        <span class="pull-right text-right">
+                            <small>Graf prosječne isplaćene bruto plaće po stručnoj spremi u: <strong>Republici Hrvatskoj</strong></small>
+                        </span>
+                        <h1 class="m-b-xs">Republika Hrvatska</h1>
+                        <h3 class="font-bold no-margins">
+                            Prosječna bruto plaća - Stručna sprema
+                        </h3>
+                        <small>Godišnji iznos bruto plaće onih zaposlenih koji su radili svih 12 mjeseci u 2019.</small>
+                    </div>
+
+                    <div>
+                        <canvas id="lineChart" height="70"></canvas>
+                    </div>
+
+                    <div class="m-t-md">
+                        <small>
+                            <strong>Analiza plaće:</strong> Visoka stručna sprema ima najveću prosječnu bruto plaću, dok Nekvalificirani imaju najmanju.
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div>
+                        <span class="pull-right text-right">
+                            <small>Graf prosječne isplaćene bruto plaće po spolu u: <strong>Republici Hrvatskoj</strong></small>
+                        </span>
+                        <h1 class="m-b-xs">Republika Hrvatska</h1>
+                        <h3 class="font-bold no-margins">
+                            Prosječna bruto plaća - Spol
+                        </h3>
+                        <small>Godišnji iznos bruto plaće onih zaposlenih koji su radili svih 12 mjeseci u 2019.</small>
+                    </div>
+
+                    <div>
+                        <div class="flot-chart-content" style="width:50%;height:370px" id="flot-bar-chart"></div>
+                    </div>
+
+                    <div class="m-t-md">
+                        <small>
+                            <strong>Analiza plaće:</strong> Muškarci imaju veću bruto plaću od žena.
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/plugins/chartJs")
+    @Scripts.Render("~/plugins/peity")
+    @Scripts.Render("~/plugins/flot")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".line").peity("line", {
+                fill: '#1ab394',
+                stroke: '#169c81',
+            })
+
+            $(".bar").peity("bar", {
+                fill: ["#1ab394", "#d7d7d7"]
+            })
+
+            $(".bar_dashboard").peity("bar", {
+                fill: ["#1ab394", "#d7d7d7"],
+                width: 100
+            })
+            var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(statistikaStrucnaSprema));
+
+            var lineData = {
+                labels: ["VSS", "VŠS", "SSS", "NSS", "VK", "KV", "Priučeni", "NKV"],
+                datasets: [
+                    {
+                        label: "Stručna sprema",
+                        backgroundColor: "rgba(26,179,148,0.5)",
+                        borderColor: "rgba(26,179,148,0.7)",
+                        pointBackgroundColor: "rgba(26,179,148,1)",
+                        pointBorderColor: "#fff",
+                        data: data
+                    }
+                ]
+            };
+
+            var lineOptions = {
+                responsive: true
+            };
+
+
+            var ctx = document.getElementById("lineChart").getContext("2d");
+            new Chart(ctx, { type: 'line', data: lineData, options: lineOptions });
+
+            
+
+            var barOptions = {
+                series: {
+                    bars: {
+                        show: true,
+                        barWidth: 0.6,
+                        fill: true,
+                        fillColor: {
+                            colors: [{
+                                opacity: 0.8
+                            }, {
+                                opacity: 0.8
+                            }]
+                        }
+                    }
+                },
+                xaxis: {
+                    tickDecimals: 0,
+                    ticks: [[0, 'Muškarci'], [1, 'Žene']]
+                },
+                colors: ["#1ab394"],
+                grid: {
+                    color: "#999999",
+                    hoverable: true,
+                    clickable: true,
+                    tickColor: "#D4D4D4",
+                    borderWidth: 0
+                },
+                legend: {
+                    show: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: function (data, x, y, dataObject) {
+                        var XdataIndex = dataObject.dataIndex;
+                        var XdataLabel = dataObject.series.xaxis.ticks[XdataIndex].label;
+                        return XdataLabel + ' imaju '+ y + 'kn prosječnu bruto plaću.'
+                    },
+                }
+            };
+
+            var dataMuski = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(statistikaMuski));
+            var dataZenski = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(statistikaZenski));
+
+            var barData = {
+                label: "Spol",
+                data: [
+                    [0, dataMuski],
+                    [1, dataZenski]
+                ]
+            };
+            $.plot($("#flot-bar-chart"), [barData], barOptions);
+        });
+    </script>
+}

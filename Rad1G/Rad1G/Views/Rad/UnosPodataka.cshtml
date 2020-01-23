@@ -1,0 +1,278 @@
+﻿@model Rad1G.Models.PodaciViewModel
+
+@{
+    ViewBag.Title = "Unos Podataka";
+}
+
+<h2>Unos Podataka</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.HiddenFor(m => Model.ObveznikId)
+        </div>
+
+        <div class="table-striped">
+            <table class="table-bordered">
+                <thead class="text-center">
+                    <tr>
+                        <th></th>
+                        <th class="text-center">
+                            Godišnji iznos bruto plaće onih zaposlenih koji su radili svih 12 mjeseci u 2019. u kunama bez lipa
+                        </th>
+                        <th class="text-center">
+                            Godišnji iznos isplaćene neto plaće onih zaposlenih koji su radili svih 12 mjeseci u 2019. u kunama bez lipa
+                        </th>
+                        <th class="text-center">
+                            Broj zaposlenih(prikazuje se stanje jednog mjeseca onih zaposlenih koji su radili svih 12 mjeseci u 2019.)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight:bold">Muškarci</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaMuskarci, new { htmlAttributes = new { @class = "form-control brutoSpol" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaMuskarci, new { htmlAttributes = new { @class = "form-control netoSpol" } })
+                        </td>
+                        <td> 
+                            @Html.EditorFor(model => model.BrojZaposlenihMuskarci, new { htmlAttributes = new { @class = "form-control brojZaposlenihSpol" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Žene</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaZene, new { htmlAttributes = new { @class = "form-control brutoSpol" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaZene, new { htmlAttributes = new { @class = "form-control netoSpol" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihZene, new { htmlAttributes = new { @class = "form-control brojZaposlenihSpol" } })
+                        </td>
+                    </tr>
+                    <tr style="font-weight:bold">
+                        <td>Ukupno</td>
+                        <td>
+                            <label class="label label-default" id="ukupnoBrutoSpol">0</label>
+                        </td>
+                        <td><label class="label label-default" id="ukupnoNetoSpol">0</label>
+                        </td>
+                        <td><label class="label label-default" id="ukupnoBrojZaposlenihSpol">0</label></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Visoka stručna sprema</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaVisokaStrucnaSprema, new { htmlAttributes = new { @class = "form-control brutoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaVisokaStrucnaSprema, new { htmlAttributes = new { @class = "form-control netoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihVisokaStrucnaSprema, new { htmlAttributes = new { @class = "form-control brojZaposlenihStrucnaSprema" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Viša stručna sprema</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaVisaStrucnaSprema, new { htmlAttributes = new { @class = "form-control brutoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaVisaStrucnaSprema, new { htmlAttributes = new { @class = "form-control netoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihVisaStrucnaSprema, new { htmlAttributes = new { @class = "form-control brojZaposlenihStrucnaSprema" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Srednja stručna sprema</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaSrednjaStrucnaSprema, new { htmlAttributes = new { @class = "form-control brutoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaSrednjaStrucnaSprema, new { htmlAttributes = new { @class = "form-control netoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihSrednjaStrucnaSprema, new { htmlAttributes = new { @class = "form-control brojZaposlenihStrucnaSprema" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Niža stručna sprema</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaNizaStrucnaSprema, new { htmlAttributes = new { @class = "form-control brutoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaNizaStrucnaSprema, new { htmlAttributes = new { @class = "form-control netoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihNizaStrucnaSprema, new { htmlAttributes = new { @class = "form-control brojZaposlenihStrucnaSprema" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Visokokvalificirani</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaVisokokvalificirani, new { htmlAttributes = new { @class = "form-control brutoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaVisokokvalificirani, new { htmlAttributes = new { @class = "form-control netoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihVisokokvalificirani, new { htmlAttributes = new { @class = "form-control brojZaposlenihStrucnaSprema" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Kvalificirani</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaKvalificirani, new { htmlAttributes = new { @class = "form-control brutoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaKvalificirani, new { htmlAttributes = new { @class = "form-control netoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihKvalificirani, new { htmlAttributes = new { @class = "form-control brojZaposlenihStrucnaSprema" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Priučeni - polukvalificirani</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaPriuceni, new { htmlAttributes = new { @class = "form-control brutoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaPriuceni, new { htmlAttributes = new { @class = "form-control netoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihPriuceni, new { htmlAttributes = new { @class = "form-control brojZaposlenihStrucnaSprema" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Nekvalificirani</td>
+                        <td>
+                            @Html.EditorFor(model => model.BrutoPlacaNekvalificirani, new { htmlAttributes = new { @class = "form-control brutoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.NetoPlacaNekvalificirani, new { htmlAttributes = new { @class = "form-control netoStrucnaSprema" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.BrojZaposlenihNekvalificirani, new { htmlAttributes = new { @class = "form-control brojZaposlenihStrucnaSprema" } })
+                        </td>
+                    </tr>
+                    <tr style="font-weight:bold">
+                        <td>Ukupno</td>
+                        <td>
+                            <label class="label label-default" id="ukupnoBrutoStrucnaSprema">0</label>
+                        </td>
+                        <td>
+                            <label class="label label-default" id="ukupnoNetoStrucnaSprema">0</label>
+                        </td>
+                        <td>
+                            <label class="label label-default" id="ukupnoBrojZaposlenihStrucnaSprema">0</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-11 col-md-12">
+                <input type="submit" value="Spremi" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Vrati se nazad", "NeobradeniObveznici")
+</div>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script>
+    function BrutoSpol() {
+        var muskiVal = document.getElementById('BrutoPlacaMuskarci').value;
+        var zenskiVal = document.getElementById('BrutoPlacaZene').value;
+        var sum = Number(muskiVal) + Number(zenskiVal)
+        document.getElementById("ukupnoBrutoSpol").innerHTML = sum;
+    }
+    $('.brutoSpol').change(function () {
+        BrutoSpol();
+    });
+
+    function NetoSpol() {
+        var muskiVal = document.getElementById('NetoPlacaMuskarci').value;
+        var zenskiVal = document.getElementById('NetoPlacaZene').value;
+        var sum = Number(muskiVal) + Number(zenskiVal)
+        document.getElementById("ukupnoNetoSpol").innerHTML = sum;
+    }
+    $('.netoSpol').change(function () {
+        NetoSpol();
+    });
+
+    function BrojZaposlenihSpol() {
+        var muskiVal = document.getElementById('BrojZaposlenihMuskarci').value;
+        var zenskiVal = document.getElementById('BrojZaposlenihZene').value;
+        var sum = Number(muskiVal) + Number(zenskiVal)
+        document.getElementById("ukupnoBrojZaposlenihSpol").innerHTML = sum;
+    }
+    $('.brojZaposlenihSpol').change(function () {
+        BrojZaposlenihSpol();
+    });
+
+
+    $('.brojZaposlenihStrucnaSprema').change(function () {
+        BrojZaposlenihStrucnaSprema();
+    });
+
+    function BrojZaposlenihStrucnaSprema() {
+        var visokaVal = document.getElementById('BrojZaposlenihVisokaStrucnaSprema').value;
+        var visaVal = document.getElementById('BrojZaposlenihVisaStrucnaSprema').value;
+        var srednjaVal = document.getElementById('BrojZaposlenihSrednjaStrucnaSprema').value;
+        var nizaVal = document.getElementById('BrojZaposlenihNizaStrucnaSprema').value;
+        var visokoKvalificiraniVal = document.getElementById('BrojZaposlenihVisokokvalificirani').value;
+        var kvalificiraniVal = document.getElementById('BrojZaposlenihKvalificirani').value;
+        var priuceniVal = document.getElementById('BrojZaposlenihPriuceni').value;
+        var neKvalificiraniVal = document.getElementById('BrojZaposlenihNekvalificirani').value;
+
+        var sum = Number(visokaVal) + Number(visaVal) + Number(srednjaVal) + Number(nizaVal) + Number(kvalificiraniVal) + Number(visokoKvalificiraniVal) + Number(priuceniVal) + Number(neKvalificiraniVal);
+        document.getElementById("ukupnoBrojZaposlenihStrucnaSprema").innerHTML = sum;
+    }
+    $('.brutoStrucnaSprema').change(function () {
+        BrutoStrucnaSprema();
+    });
+
+    function BrutoStrucnaSprema() {
+        var visokaVal = document.getElementById('BrutoPlacaVisokaStrucnaSprema').value;
+        var visaVal = document.getElementById('BrutoPlacaVisaStrucnaSprema').value;
+        var srednjaVal = document.getElementById('BrutoPlacaSrednjaStrucnaSprema').value;
+        var nizaVal = document.getElementById('BrutoPlacaNizaStrucnaSprema').value;
+        var visokoKvalificiraniVal = document.getElementById('BrutoPlacaVisokokvalificirani').value;
+        var kvalificiraniVal = document.getElementById('BrutoPlacaKvalificirani').value;
+        var priuceniVal = document.getElementById('BrutoPlacaPriuceni').value;
+        var neKvalificiraniVal = document.getElementById('BrutoPlacaNekvalificirani').value;
+
+        var sum = Number(visokaVal) + Number(visaVal) + Number(srednjaVal) + Number(nizaVal) + Number(kvalificiraniVal) + Number(visokoKvalificiraniVal) + Number(priuceniVal) + Number(neKvalificiraniVal);
+        document.getElementById("ukupnoBrutoStrucnaSprema").innerHTML = sum;
+    }
+
+    $('.netoStrucnaSprema').change(function () {
+        NetoStrucnaSprema();
+    });
+
+    function NetoStrucnaSprema() {
+        var visokaVal = document.getElementById('NetoPlacaVisokaStrucnaSprema').value;
+        var visaVal = document.getElementById('NetoPlacaVisaStrucnaSprema').value;
+        var srednjaVal = document.getElementById('NetoPlacaSrednjaStrucnaSprema').value;
+        var nizaVal = document.getElementById('NetoPlacaNizaStrucnaSprema').value;
+        var visokoKvalificiraniVal = document.getElementById('NetoPlacaVisokokvalificirani').value;
+        var kvalificiraniVal = document.getElementById('NetoPlacaKvalificirani').value;
+        var priuceniVal = document.getElementById('NetoPlacaPriuceni').value;
+        var neKvalificiraniVal = document.getElementById('NetoPlacaNekvalificirani').value;
+
+        var sum = Number(visokaVal) + Number(visaVal) + Number(srednjaVal) + Number(nizaVal) + Number(kvalificiraniVal) + Number(visokoKvalificiraniVal) + Number(priuceniVal) + Number(neKvalificiraniVal);
+        document.getElementById("ukupnoNetoStrucnaSprema").innerHTML = sum;
+    }
+</script>

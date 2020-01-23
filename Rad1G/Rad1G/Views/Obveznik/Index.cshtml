@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Rad1G.Models.ObveznikViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Obveznici</h2>
+
+<p>
+    @Html.ActionLink("Dodaj obveznika", "DodajObveznika")
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OIB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kontakt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DodjeljeniZaposlenik)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OIB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kontakt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DodjeljeniZaposlenik)
+        </td>
+        <td>
+            @Html.ActionLink("Uredi", "UrediObveznika", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

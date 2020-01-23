@@ -1,0 +1,85 @@
+﻿@using Rad1G.Models
+@model LoginViewModel
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rad1G | Prijava</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">
+                    <img src="~/Content/slike/eulogo.jpg" class="img-responsive" />
+                </h1>
+
+            </div>
+            <h3>Dobrodošli</h3>
+            <p>
+                Godišnji izvještaj o zaposlenima i isplaćenoj plaći
+            </p>
+            <h3><b><p>Prijava</p></b></h3>
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    // Bootstrap 2 = "alert-error", Bootstrap 3 and 4 = "alert-danger"
+                    <div class="alert alert-danger alert-error">
+                        <a class="close" data-dismiss="alert">&times;</a>
+                        @Html.ValidationSummary(true)
+                    </div>
+                }
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Oib" })
+                    @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Lozinka" })
+                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="Prijava">
+            }
+            <p class="m-t"> <small>Državni zavod za statistiku &copy; @DateTime.Now.Year</small> </p>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+

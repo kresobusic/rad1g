@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Neobrađeni obveznici";
+}
+
+<h2>Moji obveznici</h2>
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <input type="text" class="form-control" id="traziNeobradene" placeholder="Traži neobrađene obveznike"><span class="input-group-btn">
+                <button type="button" onclick="NeobradeniObveznici()" class="btn btn-primary">
+                    Traži
+                </button>
+            </span>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="col-sm-12"><div id="NeobradeniRezultati"></div></div>
+</div>
+
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script>
+    window.onload = NeobradeniObveznici();
+
+    function NeobradeniObveznici() {
+        var getTextVal = document.getElementById("traziNeobradene").value;
+        $.get("@Url.Action("_NeobradeniObveznici", "Rad")", { param: getTextVal }, function (data) {
+            $('#NeobradeniRezultati').html(data);
+        });
+    }
+</script>

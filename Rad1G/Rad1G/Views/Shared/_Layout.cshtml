@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Rad1G | @ViewBag.Title</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+        {@RenderSection("Styles", required: false)}
+     
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Primary Inspinia style -->     
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/font-awesome/css")
+    
+</head>
+<body>
+
+    <div id="wrapper" class="@Html.PageClass()">
+
+        <!-- Navigation -->
+        @Html.Partial("_Navigation")
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+
+            <!-- Main view  -->
+            @RenderBody()
+
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+
+        </div>
+    </div>
+    <!-- End wrapper-->
+    <div class="modal fade" data-backdrop="static" id="mainModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" id="mainModalDialog">
+            <div class="modal-content">
+                <form name="mainModalForm" role="form">
+                    <div class="modal-header bg-primary"><h4 id="mainModalH4" class="modal-title"></h4></div>
+                    <div id="mainModalBody" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="submit" id="mainModalSubmit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-ok"></span> @Resource.System_Save</button>
+                        <button type="button" id="mainModalCancel" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" id="conclusionModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" id="conclusionModalDialog">
+            <div class="modal-content">
+                <form name="conclusionModalForm" id="conclusionModalForm" role="form">
+                    <div class="modal-header">
+                        <h4 id="conclusionModalH4" class="modal-title"></h4>
+                    </div>
+                    <div id="conclusionModalBody" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="addNewRowDataTable()"><span class="glyphicon glyphicon-ok"></span> @Resource.System_Save</button>
+                        <button type="button" id="conclusionModalCancel" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" id="backupModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" id="backupModalDialog">
+            <div class="modal-content">
+                <form name="backupModalForm" id="backupModalForm" role="form">
+                    <div class="modal-header">
+                        <h4 id="backupModalH4" class="modal-title"></h4>
+                    </div>
+                    <div id="backupModalBody" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-ok"></span> @Resource.System_Save</button>
+                        <button type="button" id="backupModalCancel" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" id="selectRecordModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" id="selectRecordModalDialog">
+            <div class="modal-content">
+                <form name="selectRecordModalForm" role="form">
+                    <div class="modal-header">
+                        <h4 id="selectRecordModalH4" class="modal-title">@Resource.Label_Selection</h4>
+                    </div>
+                    <div id="selectRecordModalBody" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="CloseSelectRecordDialog()"><span class="glyphicon glyphicon-ok"></span> @Resource.System_Save</button>
+                        <button type="button" id="backupModalCancel" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" id="selectAnalysisGroupModal" role="dialog" aria-hidden="true" style="z-index: 1051;">
+        <div class="modal-dialog modal-lg" id="selectAnalysisGroupModalDialog">
+            <div class="modal-content">
+                <form name="selectAnalysisGroupModalForm" role="form">
+                    <div class="modal-header">
+                        <h4 id="selectAnalysisGroupModalH4" class="modal-title">@Resource.Label_Selection</h4>
+                    </div>
+                    <div id="selectAnalysisGroupModalBody" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" id="selectAnalysisGroupModalSave" class="btn btn-primary btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> @Resource.System_Save</button>
+                        <button type="button" id="selectAnalysisGroupModalCancel" onclick="ReleaseAllModals();" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" id="deleteMultipleResultsModal" tabindex='-1' role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" id="deleteMultipleResultsModalDialog">
+            <div class="modal-content">
+                <form name="deleteMultipleResultsModalForm" role="form">
+                    <div class="modal-header">
+                        <h4 id="deleteMultipleResultsModalH4" class="modal-title">@Resource.Label_Selection</h4>
+                    </div>
+                    <div id="deleteMultipleResultsModalBody" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" id="deleteMultipleResultsModalSave" class="btn btn-primary btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> @Resource.System_Save</button>
+                        <button type="button" id="deleteMultipleResultsModalCancel" onclick="ReleaseAllModals();" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" id="setMultipleResultsModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" id="setMultipleResultsModalDialog">
+            <div class="modal-content">
+                <form name="setMultipleResultsModalForm" role="form">
+                    <div class="modal-header">
+                        <h4 id="setMultipleResultsModalH4" class="modal-title">@Resource.Label_Selection</h4>
+                    </div>
+                    <div id="setMultipleResultsModalBody" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" id="setMultipleResultsModalSave" class="btn btn-primary btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> @Resource.System_Save</button>
+                        <button type="button" id="setMultipleResultsModalCancel" onclick="ReleaseAllModals();" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" id="selectParametersMethodsModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" id="selectParametersMethodsModalDialog">
+            <div class="modal-content">
+                <form name="selectParametersMethodsModalForm" role="form">
+                    <div class="modal-header">
+                        <h4 id="selectParametersMethodsModalH4" class="modal-title">@Resource.Label_Selection</h4>
+                    </div>
+                    <div id="selectParametersMethodsModalBody" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" id="selectParametersMethodsModalSave" class="btn btn-primary btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> @Resource.System_Save</button>
+                        <button type="button" id="selectParametersMethodsModalCancel" onclick="ReleaseAllModals();" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" data-backdrop="static" id="ExceptionModal" role="dialog" aria-labelledby="ExceptionModalTitle" aria-hidden="true" style="z-index: 99999999;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="ExceptionModalForm" data-toggle="validator">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="ExceptionModalTitle">@Resource.Label_Error</h4>
+                    </div>
+                    <div class="modal-body" id="ExceptionModalFormBody">
+                        <div class="form-group">
+                            <div class="panel panel-danger">
+                                <div class="panel-body" style="max-height: 500px; overflow-y: auto; word-wrap: break-word; font-size: 12px;">
+                                    <div id="Exception-Message"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> @Resource.System_Close</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="sendEmail();" id="sendEmailButton"><span class="glyphicon glyphicon-envelope"></span> @Resource.System_SendEmail</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+
+    <!-- Skin config script - only for demo purpose-->
+    @Scripts.Render("~/bundles/skinConfig")
+
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

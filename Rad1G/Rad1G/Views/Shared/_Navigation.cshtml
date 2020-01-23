@@ -1,0 +1,51 @@
+﻿<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" style="width:100px;height:100px" src="~/Images/profile_small.jpg" />
+                    </span>
+                    <span class="clear">
+                        <span class="block m-t-xs">
+                            <strong class="font-bold">Državna uprava</strong>
+                        </span> <span class="text-muted text-xs block">Državni zavod za statistiku</span>
+                    </span>
+                </div>
+                <div class="logo-element">
+                    DZS
+                </div>
+            </li>
+
+            @if (User.IsInRole("Administrator") || User.IsInRole("Zaposlenik"))
+            {
+                <li class="@Html.IsSelected(controller: "Home")">
+                    <a href="@Url.Action("Index", "Home")"><i class="fa fa-area-chart"></i> <span class="nav-label" data-i18n="nav.account">Statistika</span> </a>
+                </li>
+
+                <li class="@Html.IsSelected(controller: "Obveznik")">
+                    <a href="#"><i class="fa fa-user-circle"></i> <span class="nav-label" data-i18n="nav.forms">Obveznik</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Forms", cssClass: "in")">
+                        <li class="@Html.IsSelected(action: "Index")"> <a href="@Url.Action("Index", "Obveznik")">Obveznici</a></li>
+                        <li class="@Html.IsSelected(action: "DodajObveznika")"> <a href="@Url.Action("DodajObveznika", "Obveznik")">Dodaj obveznika </a></li>
+                    </ul>
+                </li>
+
+                <li class="@Html.IsSelected(controller: "Rad")">
+                    <a href="#"><i class="fa fa-pie-chart"></i> <span class="nav-label" data-i18n="nav.forms">Rad</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Forms", cssClass: "in")">
+                        <li class="@Html.IsSelected(action: "NeobradeniObveznici")"> <a href="@Url.Action("NeobradeniObveznici", "Rad")">Neobrađeni obveznici</a></li>
+                        <li class="@Html.IsSelected(action: "ObradeniObveznici")"> <a href="@Url.Action("ObradeniObveznici", "Rad")">Obrađeni obveznici </a></li>
+                    </ul>
+                </li>
+            }
+            @if (User.IsInRole("Administrator"))
+            {
+                <li class="@Html.IsSelected(controller: "Account")">
+                    <a href="@Url.Action("Register", "Account")"><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.account">Zaposlenici</span> </a>
+                </li>
+            }
+
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Rad1GModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="150" />
+          <Property Name="LastName" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Obveznik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OIB" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Kontakt" Type="varchar" MaxLength="20" />
+          <Property Name="IdZaposlenika" Type="nvarchar" MaxLength="128" />
+          <Property Name="PodaciUneseni" Type="bit" />
+        </EntityType>
+        <EntityType Name="RadPodaci">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObveznikId" Type="int" Nullable="false" />
+          <Property Name="ZaposlenikId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="BrutoPlacaMuskarci" Type="int" />
+          <Property Name="NetoPlacaMuskarci" Type="int" />
+          <Property Name="BrojZaposlenihMuskarci" Type="int" />
+          <Property Name="BrutoPlacaZene" Type="int" />
+          <Property Name="NetoPlacaZene" Type="int" />
+          <Property Name="BrojZaposlenihZene" Type="int" />
+          <Property Name="BrutoPlacaVisokaStrucnaSprema" Type="int" />
+          <Property Name="NetoPlacaVisokaStrucnaSprema" Type="int" />
+          <Property Name="BrojZaposlenihVisokaStrucnaSprema" Type="int" />
+          <Property Name="BrutoPlacaVisaStrucnaSprema" Type="int" />
+          <Property Name="NetoPlacaVisaStrucnaSprema" Type="int" />
+          <Property Name="BrojZaposlenihVisaStrucnaSprema" Type="int" />
+          <Property Name="BrutoPlacaSrednjaStrucnaSprema" Type="int" />
+          <Property Name="NetoPlacaSrednjaStrucnaSprema" Type="int" />
+          <Property Name="BrojZaposlenihSrednjaStrucnaSprema" Type="int" />
+          <Property Name="BrutoPlacaNizaStrucnaSprema" Type="int" />
+          <Property Name="NetoPlacaNizaStrucnaSprema" Type="int" />
+          <Property Name="BrojZaposlenihNizaStrucnaSprema" Type="int" />
+          <Property Name="BrutoPlacaVisokokvalificirani" Type="int" />
+          <Property Name="NetoPlacaVisokokvalificirani" Type="int" />
+          <Property Name="BrojZaposlenihVisokokvalificirani" Type="int" />
+          <Property Name="BrutoPlacaKvalificirani" Type="int" />
+          <Property Name="NetoPlacaKvalificirani" Type="int" />
+          <Property Name="BrojZaposlenihKvalificirani" Type="int" />
+          <Property Name="BrutoPlacaPriuceni" Type="int" />
+          <Property Name="NetoPlacaPriuceni" Type="int" />
+          <Property Name="BrojZaposlenihPriuceni" Type="int" />
+          <Property Name="BrutoPlacaNekvalificirani" Type="int" />
+          <Property Name="NetoPlacaNekvalificirani" Type="int" />
+          <Property Name="BrojZaposlenihNekvalificirani" Type="int" />
+        </EntityType>
+        <Association Name="FK_Obveznik_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Obveznik" Type="Self.Obveznik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obveznik">
+              <PropertyRef Name="IdZaposlenika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RadPodaci_Obveznik">
+          <End Role="Obveznik" Type="Self.Obveznik" Multiplicity="1" />
+          <End Role="RadPodaci" Type="Self.RadPodaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obveznik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RadPodaci">
+              <PropertyRef Name="ObveznikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RadPodaci_RadPodaci">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="RadPodaci" Type="Self.RadPodaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RadPodaci">
+              <PropertyRef Name="ZaposlenikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Rad1GModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Obveznik" EntityType="Self.Obveznik" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="RadPodaci" EntityType="Self.RadPodaci" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_Obveznik_AspNetUsers" Association="Self.FK_Obveznik_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Obveznik" EntitySet="Obveznik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RadPodaci_Obveznik" Association="Self.FK_RadPodaci_Obveznik">
+            <End Role="Obveznik" EntitySet="Obveznik" />
+            <End Role="RadPodaci" EntitySet="RadPodaci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RadPodaci_RadPodaci" Association="Self.FK_RadPodaci_RadPodaci">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="RadPodaci" EntitySet="RadPodaci" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Rad1GModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="Rad1GEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetUsers" EntityType="Rad1GModel.AspNetUser" />
+          <EntitySet Name="Obvezniks" EntityType="Rad1GModel.Obveznik" />
+          <EntitySet Name="RadPodacis" EntityType="Rad1GModel.RadPodaci" />
+          <AssociationSet Name="FK_Obveznik_AspNetUsers" Association="Rad1GModel.FK_Obveznik_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Obveznik" EntitySet="Obvezniks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RadPodaci_RadPodaci" Association="Rad1GModel.FK_RadPodaci_RadPodaci">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="RadPodaci" EntitySet="RadPodacis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RadPodaci_Obveznik" Association="Rad1GModel.FK_RadPodaci_Obveznik">
+            <End Role="Obveznik" EntitySet="Obvezniks" />
+            <End Role="RadPodaci" EntitySet="RadPodacis" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Obvezniks" Relationship="Rad1GModel.FK_Obveznik_AspNetUsers" FromRole="AspNetUser" ToRole="Obveznik" />
+          <NavigationProperty Name="RadPodacis" Relationship="Rad1GModel.FK_RadPodaci_RadPodaci" FromRole="AspNetUser" ToRole="RadPodaci" />
+        </EntityType>
+        <EntityType Name="Obveznik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OIB" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="Kontakt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdZaposlenika" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PodaciUneseni" Type="Boolean" />
+          <NavigationProperty Name="AspNetUser" Relationship="Rad1GModel.FK_Obveznik_AspNetUsers" FromRole="Obveznik" ToRole="AspNetUser" />
+          <NavigationProperty Name="RadPodacis" Relationship="Rad1GModel.FK_RadPodaci_Obveznik" FromRole="Obveznik" ToRole="RadPodaci" />
+        </EntityType>
+        <EntityType Name="RadPodaci">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObveznikId" Type="Int32" Nullable="false" />
+          <Property Name="ZaposlenikId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="BrutoPlacaMuskarci" Type="Int32" />
+          <Property Name="NetoPlacaMuskarci" Type="Int32" />
+          <Property Name="BrojZaposlenihMuskarci" Type="Int32" />
+          <Property Name="BrutoPlacaZene" Type="Int32" />
+          <Property Name="NetoPlacaZene" Type="Int32" />
+          <Property Name="BrojZaposlenihZene" Type="Int32" />
+          <Property Name="BrutoPlacaVisokaStrucnaSprema" Type="Int32" />
+          <Property Name="NetoPlacaVisokaStrucnaSprema" Type="Int32" />
+          <Property Name="BrojZaposlenihVisokaStrucnaSprema" Type="Int32" />
+          <Property Name="BrutoPlacaVisaStrucnaSprema" Type="Int32" />
+          <Property Name="NetoPlacaVisaStrucnaSprema" Type="Int32" />
+          <Property Name="BrojZaposlenihVisaStrucnaSprema" Type="Int32" />
+          <Property Name="BrutoPlacaSrednjaStrucnaSprema" Type="Int32" />
+          <Property Name="NetoPlacaSrednjaStrucnaSprema" Type="Int32" />
+          <Property Name="BrojZaposlenihSrednjaStrucnaSprema" Type="Int32" />
+          <Property Name="BrutoPlacaNizaStrucnaSprema" Type="Int32" />
+          <Property Name="NetoPlacaNizaStrucnaSprema" Type="Int32" />
+          <Property Name="BrojZaposlenihNizaStrucnaSprema" Type="Int32" />
+          <Property Name="BrutoPlacaVisokokvalificirani" Type="Int32" />
+          <Property Name="NetoPlacaVisokokvalificirani" Type="Int32" />
+          <Property Name="BrojZaposlenihVisokokvalificirani" Type="Int32" />
+          <Property Name="BrutoPlacaKvalificirani" Type="Int32" />
+          <Property Name="NetoPlacaKvalificirani" Type="Int32" />
+          <Property Name="BrojZaposlenihKvalificirani" Type="Int32" />
+          <Property Name="BrutoPlacaPriuceni" Type="Int32" />
+          <Property Name="NetoPlacaPriuceni" Type="Int32" />
+          <Property Name="BrojZaposlenihPriuceni" Type="Int32" />
+          <Property Name="BrutoPlacaNekvalificirani" Type="Int32" />
+          <Property Name="NetoPlacaNekvalificirani" Type="Int32" />
+          <Property Name="BrojZaposlenihNekvalificirani" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="Rad1GModel.FK_RadPodaci_RadPodaci" FromRole="RadPodaci" ToRole="AspNetUser" />
+          <NavigationProperty Name="Obveznik" Relationship="Rad1GModel.FK_RadPodaci_Obveznik" FromRole="RadPodaci" ToRole="Obveznik" />
+        </EntityType>
+        <Association Name="FK_Obveznik_AspNetUsers">
+          <End Type="Rad1GModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="Rad1GModel.Obveznik" Role="Obveznik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obveznik">
+              <PropertyRef Name="IdZaposlenika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RadPodaci_RadPodaci">
+          <End Type="Rad1GModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="Rad1GModel.RadPodaci" Role="RadPodaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RadPodaci">
+              <PropertyRef Name="ZaposlenikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RadPodaci_Obveznik">
+          <End Type="Rad1GModel.Obveznik" Role="Obveznik" Multiplicity="1" />
+          <End Type="Rad1GModel.RadPodaci" Role="RadPodaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obveznik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RadPodaci">
+              <PropertyRef Name="ObveznikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="Rad1GModelStoreContainer" CdmEntityContainer="Rad1GEntities">
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Rad1GModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obvezniks">
+            <EntityTypeMapping TypeName="Rad1GModel.Obveznik">
+              <MappingFragment StoreEntitySet="Obveznik">
+                <ScalarProperty Name="PodaciUneseni" ColumnName="PodaciUneseni" />
+                <ScalarProperty Name="IdZaposlenika" ColumnName="IdZaposlenika" />
+                <ScalarProperty Name="Kontakt" ColumnName="Kontakt" />
+                <ScalarProperty Name="OIB" ColumnName="OIB" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RadPodacis">
+            <EntityTypeMapping TypeName="Rad1GModel.RadPodaci">
+              <MappingFragment StoreEntitySet="RadPodaci">
+                <ScalarProperty Name="BrojZaposlenihNekvalificirani" ColumnName="BrojZaposlenihNekvalificirani" />
+                <ScalarProperty Name="NetoPlacaNekvalificirani" ColumnName="NetoPlacaNekvalificirani" />
+                <ScalarProperty Name="BrutoPlacaNekvalificirani" ColumnName="BrutoPlacaNekvalificirani" />
+                <ScalarProperty Name="BrojZaposlenihPriuceni" ColumnName="BrojZaposlenihPriuceni" />
+                <ScalarProperty Name="NetoPlacaPriuceni" ColumnName="NetoPlacaPriuceni" />
+                <ScalarProperty Name="BrutoPlacaPriuceni" ColumnName="BrutoPlacaPriuceni" />
+                <ScalarProperty Name="BrojZaposlenihKvalificirani" ColumnName="BrojZaposlenihKvalificirani" />
+                <ScalarProperty Name="NetoPlacaKvalificirani" ColumnName="NetoPlacaKvalificirani" />
+                <ScalarProperty Name="BrutoPlacaKvalificirani" ColumnName="BrutoPlacaKvalificirani" />
+                <ScalarProperty Name="BrojZaposlenihVisokokvalificirani" ColumnName="BrojZaposlenihVisokokvalificirani" />
+                <ScalarProperty Name="NetoPlacaVisokokvalificirani" ColumnName="NetoPlacaVisokokvalificirani" />
+                <ScalarProperty Name="BrutoPlacaVisokokvalificirani" ColumnName="BrutoPlacaVisokokvalificirani" />
+                <ScalarProperty Name="BrojZaposlenihNizaStrucnaSprema" ColumnName="BrojZaposlenihNizaStrucnaSprema" />
+                <ScalarProperty Name="NetoPlacaNizaStrucnaSprema" ColumnName="NetoPlacaNizaStrucnaSprema" />
+                <ScalarProperty Name="BrutoPlacaNizaStrucnaSprema" ColumnName="BrutoPlacaNizaStrucnaSprema" />
+                <ScalarProperty Name="BrojZaposlenihSrednjaStrucnaSprema" ColumnName="BrojZaposlenihSrednjaStrucnaSprema" />
+                <ScalarProperty Name="NetoPlacaSrednjaStrucnaSprema" ColumnName="NetoPlacaSrednjaStrucnaSprema" />
+                <ScalarProperty Name="BrutoPlacaSrednjaStrucnaSprema" ColumnName="BrutoPlacaSrednjaStrucnaSprema" />
+                <ScalarProperty Name="BrojZaposlenihVisaStrucnaSprema" ColumnName="BrojZaposlenihVisaStrucnaSprema" />
+                <ScalarProperty Name="NetoPlacaVisaStrucnaSprema" ColumnName="NetoPlacaVisaStrucnaSprema" />
+                <ScalarProperty Name="BrutoPlacaVisaStrucnaSprema" ColumnName="BrutoPlacaVisaStrucnaSprema" />
+                <ScalarProperty Name="BrojZaposlenihVisokaStrucnaSprema" ColumnName="BrojZaposlenihVisokaStrucnaSprema" />
+                <ScalarProperty Name="NetoPlacaVisokaStrucnaSprema" ColumnName="NetoPlacaVisokaStrucnaSprema" />
+                <ScalarProperty Name="BrutoPlacaVisokaStrucnaSprema" ColumnName="BrutoPlacaVisokaStrucnaSprema" />
+                <ScalarProperty Name="BrojZaposlenihZene" ColumnName="BrojZaposlenihZene" />
+                <ScalarProperty Name="NetoPlacaZene" ColumnName="NetoPlacaZene" />
+                <ScalarProperty Name="BrutoPlacaZene" ColumnName="BrutoPlacaZene" />
+                <ScalarProperty Name="BrojZaposlenihMuskarci" ColumnName="BrojZaposlenihMuskarci" />
+                <ScalarProperty Name="NetoPlacaMuskarci" ColumnName="NetoPlacaMuskarci" />
+                <ScalarProperty Name="BrutoPlacaMuskarci" ColumnName="BrutoPlacaMuskarci" />
+                <ScalarProperty Name="ZaposlenikId" ColumnName="ZaposlenikId" />
+                <ScalarProperty Name="ObveznikId" ColumnName="ObveznikId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>
